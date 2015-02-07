@@ -84,6 +84,12 @@ function setup_localrc {
         echo "CEPH_LOOPBACK_DISK_SIZE=8G" >>"$localrc_file"
     fi
 
+    if [[ "$DEVSTACK_GATE_SHEEPDOG" == "1" ]]; then
+        echo "CINDER_ENABLED_BACKENDS=sheepdog:sheepdog" >>"$localrc_file"
+        echo "TEMPEST_STORAGE_PROTOCOL=sheepdog" >>"$localrc_file"
+        echo "SHEEPDOG_LOOPBACK_DISK_SIZE=8G" >>"$localrc_file"
+    fi
+
     # the exercises we *don't* want to test on for devstack
     SKIP_EXERCISES=boot_from_volume,bundle,client-env,euca
 
